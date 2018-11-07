@@ -1,6 +1,6 @@
-package aoc;
+package aoc.strategy;
 
-public class DiffusionCausale implements AlgoDiffusion {
+public class DiffusionAtomique implements AlgoDiffusion {
 
 	@Override
 	public void configure() {

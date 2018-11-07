@@ -1,4 +1,4 @@
-package aoc;
+package aoc.strategy;
 
 public interface AlgoDiffusion {
 	void configure();
