@@ -2,10 +2,10 @@ package aoc.proxy;
 
 import java.util.concurrent.Callable;
 
-public class GetValue implements Callable<Object> {
+public class GetValue implements Callable<Integer> {
 
 	@Override
-	public Object call() throws Exception {
+	public Integer call() throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}

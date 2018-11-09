@@ -1,5 +1,9 @@
 package aoc.back;
 
+import java.util.Observable;
+import java.util.Observer;
+import java.util.concurrent.Future;
+
 import aoc.front.ObservateurGenerateur;
 
 public class GenerateurImpl implements Generateur {
@@ -17,9 +21,10 @@ public class GenerateurImpl implements Generateur {
 	}
 
 	@Override
-	public Integer getValue() {
+	public Future<Integer> getValue() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 }

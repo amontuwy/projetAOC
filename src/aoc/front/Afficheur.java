@@ -2,7 +2,7 @@ package aoc.front;
 
 import aoc.back.Generateur;
 
-public class Afficheur implements ObservateurGenerateur {
+public class Afficheur implements ObservateurGenerateur{
 
 	@Override
 	public void update(Generateur gen) {

@@ -1,12 +1,19 @@
 package aoc.proxy;
 
 import java.util.concurrent.Future;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
-import aoc.back.Generateur;
+import javax.swing.text.html.MinimalHTMLWriter;
+
+import aoc.back.Generateur;import aoc.back.GenerateurAsync;
 import aoc.front.ObservateurGenerateur;
+import aoc.front.ObservateurGenerateurAsync;
 
-public class Canal implements ObservateurGenerateur, Generateur {
-
+public class Canal implements ObservateurGenerateurAsync, GenerateurAsync {
+	private ScheduledExecutorService schExecSv = new ScheduledThreadPoolExecutor(4);
 	Generateur gen;
 	ObservateurGenerateur obs;
 
@@ -29,15 +36,13 @@ public class Canal implements ObservateurGenerateur, Generateur {
 	}
 
 	@Override
-	public Integer getValue() {
-		// TODO Auto-generated method stub
-		return null;
+	public Future<Integer> getValue() {
+		return this.schExecSv.schedule(new GetValue(), 500, TimeUnit.MILLISECONDS);
 	}
 
 	@Override
-	public void update(Generateur gen) {
-		// TODO Auto-generated method stub
-		
+	public Future<Object> update(Generateur gen/*why*/) {
+		return this.schExecSv.schedule(new Update(), 500, TimeUnit.MILLISECONDS);
 	}
 
 }
