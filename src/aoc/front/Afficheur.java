@@ -1,4 +1,6 @@
-package aoc;
+package aoc.front;
+
+import aoc.back.Generateur;
 
 public class Afficheur implements ObservateurGenerateur {
 

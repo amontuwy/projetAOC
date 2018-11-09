@@ -1,4 +1,4 @@
-package aoc;
+package aoc.front;
 
 public interface ObservateurGenerateurAsync {
 

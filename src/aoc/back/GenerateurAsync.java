@@ -1,4 +1,4 @@
-package aoc;
+package aoc.back;
 
 public interface GenerateurAsync {
 

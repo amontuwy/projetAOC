@@ -1,6 +1,9 @@
-package aoc;
+package aoc.proxy;
 
 import java.util.concurrent.Future;
+
+import aoc.back.Generateur;
+import aoc.front.ObservateurGenerateur;
 
 public class Canal implements ObservateurGenerateur, Generateur {
 

@@ -1,4 +1,4 @@
-package aoc;
+package aoc.proxy;
 
 import java.util.concurrent.Callable;
 

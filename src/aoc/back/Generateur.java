@@ -1,4 +1,6 @@
-package aoc;
+package aoc.back;
+
+import aoc.front.ObservateurGenerateur;
 
 public interface Generateur {
 	
