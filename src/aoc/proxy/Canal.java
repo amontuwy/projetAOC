@@ -10,14 +10,14 @@ import aoc.front.interfacies.ObservateurGenerateur;
 import aoc.proxy.interfacies.GenerateurAsync;
 import aoc.proxy.interfacies.ObservateurGenerateurAsync;
 
+//mon canal est observateur du point de vu de mon générateur, et générateur du point de vue de mon afficheur
 public class Canal implements ObservateurGenerateurAsync, GenerateurAsync {
 	private ScheduledExecutorService schExecSv = new ScheduledThreadPoolExecutor(4);
-	Generateur gen;
-	ObservateurGenerateur obs;
+	Generateur gen; 
+	ObservateurGenerateur obs; 
 
 	public Canal(Generateur gen, ObservateurGenerateur obs) {
 		super();
-		this.gen = gen;
 		this.obs = obs;
 	}
 
@@ -34,7 +34,7 @@ public class Canal implements ObservateurGenerateurAsync, GenerateurAsync {
 	}
 
 	@Override
-	public Future<Integer> getValue() {
+	public Future<Integer> getValue(ObservateurGenerateur obs) {
 		return this.schExecSv.schedule(new GetValue(this.gen, this), 500, TimeUnit.MILLISECONDS);
 	}
 
@@ -43,5 +43,6 @@ public class Canal implements ObservateurGenerateurAsync, GenerateurAsync {
 		this.gen = gen;
 		return this.schExecSv.schedule(new Update(this.obs, this), 500, TimeUnit.MILLISECONDS);
 	}
+
 
 }

@@ -2,34 +2,31 @@ package aoc.swing;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
 
-import javax.sound.sampled.AudioFormat;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.DataLine;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.SourceDataLine;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 public class Fenetre extends JFrame {
 	private JButton buttonAtom = new JButton("Diffusion Atomique");
 	private JButton buttonSequ = new JButton("Diffusion Séquentielle");
 	private JButton buttonCaus = new JButton("Diffusion Causale");
 
-	JLabel canal1 = new JLabel("v1");
-	JLabel canal2 = new JLabel("v2");
-	JLabel canal3 = new JLabel("v3");
-	JLabel canal4 = new JLabel("v4");
+	JLabel canal1 = new JLabel("v1", JLabel.CENTER);
+	JLabel canal2 = new JLabel("v2", JLabel.CENTER);
+	JLabel canal3 = new JLabel("v3", JLabel.CENTER);
+	JLabel canal4 = new JLabel("v4", JLabel.CENTER);
 	
-	JLabel labelC1 = new JLabel("Canal 1");
-	JLabel labelC2 = new JLabel("Canal 2");
-	JLabel labelC3 = new JLabel("Canal 3");
-	JLabel labelC4 = new JLabel("Canal 4");
+	JLabel labelC1 = new JLabel("Canal 1", JLabel.CENTER);
+	JLabel labelC2 = new JLabel("Canal 2", JLabel.CENTER);
+	JLabel labelC3 = new JLabel("Canal 3", JLabel.CENTER);
+	JLabel labelC4 = new JLabel("Canal 4", JLabel.CENTER);
+	
+//  labelC1.setVerticalTextAlignment(SwingConstants.BOTTOM);
+//	labelC2.setVerticalAlignment(JLabel.BOTTOM);
+//	labelC3.setVerticalAlignment(JLabel.BOTTOM);
+//	labelC4.setVerticalAlignment(JLabel.BOTTOM);
+//	
 	JLabel choose = new JLabel("Choix de la cohérence :");
 
 	public Fenetre () {

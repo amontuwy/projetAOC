@@ -8,5 +8,7 @@ public interface GenerateurAsync {
 
 	void attach (ObservateurGenerateur obs);
 	void detach (ObservateurGenerateur obs);
-	Future<Integer> getValue();
+	
+	//pourquoi ici getvalue ne prend pas de parametre alors ?
+	Future<Integer> getValue(ObservateurGenerateur obs);
 }
