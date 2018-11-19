@@ -1,32 +1,51 @@
 package aoc.back;
 
-import java.util.concurrent.Future;
+import java.util.ArrayList;
+import java.util.List;
 
 import aoc.back.interfacies.Generateur;
-import aoc.proxy.interfacies.GenerateurAsync;
 import aoc.proxy.interfacies.ObservateurGenerateurAsync;
+import aoc.strategy.AlgoDiffusion;
+import aoc.strategy.DiffusionAtomique;
 
 public class GenerateurImpl implements Generateur {
-
-
+	
+	AlgoDiffusion alg = new DiffusionAtomique(this);
+	Integer value;
+	List <ObservateurGenerateurAsync> listobs = new ArrayList<ObservateurGenerateurAsync>();
 
 	@Override
-	public void attach(ObservateurGenerateurAsync canal) {
-		// TODO Auto-generated method stub
-		
+	public void attach(ObservateurGenerateurAsync observeur) {
+		listobs.add(observeur);
+	}
+	
+	@Override
+	public void detach(ObservateurGenerateurAsync observeur) {
+		if (listobs.contains(observeur)){
+			listobs.remove(observeur);
+		}
 	}
 
 	@Override
-	public void detach(ObservateurGenerateurAsync canal) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public Future<Integer> getValue(GenerateurAsync canal) {
-		// TODO Auto-generated method stub
+	public Integer getValue(ObservateurGenerateurAsync obs) {
 		return null;
 	}
+	
+	public void setValue(Integer value) {
+		this.value = value;
+		alg.execute();
+		
+	}
 
+	public List<ObservateurGenerateurAsync> getListobs() {
+		return listobs;
+	}
+
+	public void setListobs(List<ObservateurGenerateurAsync> listobs) {
+		this.listobs = listobs;
+	}
+
+	public Integer getValue() {
+		return value;
+	}
 }
