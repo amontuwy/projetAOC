@@ -10,18 +10,25 @@ public class Main {
 
 		Generateur gen = new GenerateurImpl();
 		
-		ObservateurGenerateur aff1 = new Afficheur();
-		ObservateurGenerateur aff2 = new Afficheur();
-		ObservateurGenerateur aff3 = new Afficheur();
+		ObservateurGenerateur aff1 = new Afficheur(1);
+		ObservateurGenerateur aff2 = new Afficheur(2);
+		ObservateurGenerateur aff3 = new Afficheur(3);
 		
-		Canal canal1 = new Canal(aff1);
-		Canal canal2 = new Canal(aff2);
-		Canal canal3 = new Canal(aff3);
+		Canal canal1 = new Canal();
+		canal1.attach(aff1);
+		Canal canal2 = new Canal();
+		canal2.attach(aff2);
+		Canal canal3 = new Canal();
+		canal3.attach(aff3);
+		
+		canal1.update(gen);
+		canal2.update(gen);
+		canal3.update(gen);
 		
 		gen.attach(canal1);
 		gen.attach(canal2);
 		gen.attach(canal3);
-	
+		
 	}
 
 }

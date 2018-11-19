@@ -1,5 +1,6 @@
 package aoc.proxy;
 
+import java.util.Random;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
@@ -16,32 +17,31 @@ public class Canal implements ObservateurGenerateurAsync, GenerateurAsync {
 	Generateur gen;
 	ObservateurGenerateur obs; 
 
-	public Canal(ObservateurGenerateur obs) {
+	public Canal() {
 		super();
-		this.obs = obs;
 	}
 
 	@Override
 	public void attach(ObservateurGenerateur obs) {
-		// TODO Auto-generated method stub
+		this.obs=obs;
 		
 	}
 
 	@Override
 	public void detach(ObservateurGenerateur obs) {
-		// TODO Auto-generated method stub
+		this.obs=null;
 		
 	}
 
 	@Override
 	public Future<Integer> getValue() {
-		return this.schExecSv.schedule(new GetValue(this.gen, this), 500, TimeUnit.MILLISECONDS);
+		return this.schExecSv.schedule(new GetValue(this.gen, this), new Random().nextInt(3000), TimeUnit.MILLISECONDS);
 	}
 
 	@Override
 	public Future<Object> update(Generateur gen) {
 		this.gen = gen;
-		return this.schExecSv.schedule(new Update(this.obs, this), 500, TimeUnit.MILLISECONDS);
+		return this.schExecSv.schedule(new Update(this.obs, this), new Random().nextInt(3000), TimeUnit.MILLISECONDS);
 	}
 
 

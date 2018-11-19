@@ -11,7 +11,7 @@ import aoc.strategy.DiffusionAtomique;
 public class GenerateurImpl implements Generateur {
 	
 	AlgoDiffusion alg = new DiffusionAtomique(this);
-	Integer value;
+	Integer value=3;
 	List <ObservateurGenerateurAsync> listobs = new ArrayList<ObservateurGenerateurAsync>();
 
 	@Override
@@ -28,13 +28,12 @@ public class GenerateurImpl implements Generateur {
 
 	@Override
 	public Integer getValue(ObservateurGenerateurAsync obs) {
-		return null;
+		return this.value;
 	}
 	
 	public void setValue(Integer value) {
 		this.value = value;
-		alg.execute();
-		
+		alg.execute();	
 	}
 
 	public List<ObservateurGenerateurAsync> getListobs() {
