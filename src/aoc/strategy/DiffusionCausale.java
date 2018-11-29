@@ -2,6 +2,7 @@ package aoc.strategy;
 
 import aoc.back.GenerateurImpl;
 
+
 public class DiffusionCausale implements AlgoDiffusion {
 GenerateurImpl gen;
 	

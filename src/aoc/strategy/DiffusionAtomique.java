@@ -28,10 +28,7 @@ public class DiffusionAtomique implements AlgoDiffusion {
 		futureList.forEach(f->{
 			try {
 				f.get();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ExecutionException e) {
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}

@@ -6,6 +6,7 @@ import aoc.proxy.Canal;
 import aoc.strategy.AlgoDiffusion;
 import aoc.strategy.DiffusionAtomique;
 import aoc.strategy.DiffusionCausale;
+import aoc.strategy.DiffusionSequentielle;
 
 public class Main {
 
@@ -13,7 +14,7 @@ public class Main {
 
 		//c'est pas ouf d'utiliser generateur impl
 		GenerateurImpl gen = new GenerateurImpl();
-		gen.setAlg(new DiffusionCausale(gen));
+		gen.setAlg(new DiffusionSequentielle(gen));
 		
 		ObservateurGenerateur aff1 = new Afficheur(1);
 		ObservateurGenerateur aff2 = new Afficheur(2);
@@ -25,10 +26,6 @@ public class Main {
 		canal2.attach(aff2);
 		Canal canal3 = new Canal();
 		canal3.attach(aff3);
-		
-		canal1.update(gen);
-		canal2.update(gen);
-		canal3.update(gen);
 		
 		gen.attach(canal1);
 		gen.attach(canal2);

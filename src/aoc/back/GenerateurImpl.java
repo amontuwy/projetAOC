@@ -8,9 +8,9 @@ import aoc.proxy.interfacies.ObservateurGenerateurAsync;
 import aoc.strategy.AlgoDiffusion;
 import aoc.strategy.DiffusionAtomique;
 
-public class GenerateurImpl implements Generateur {
+public class GenerateurImpl implements Generateur{
 	
-	AlgoDiffusion alg = new DiffusionAtomique(this);
+	AlgoDiffusion alg;
 	Integer value;
 	List <ObservateurGenerateurAsync> listobs = new ArrayList<ObservateurGenerateurAsync>();
 	
@@ -53,7 +53,6 @@ public class GenerateurImpl implements Generateur {
 	
 	public void setValue(Integer value) {
 		this.value = value;
-		alg.execute();	
 	}
 
 	public List<ObservateurGenerateurAsync> getListobs() {
@@ -75,4 +74,5 @@ public class GenerateurImpl implements Generateur {
 	public void setAlg(AlgoDiffusion alg) {
 		this.alg = alg;
 	}
+	
 }
