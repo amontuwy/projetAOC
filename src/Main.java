@@ -3,12 +3,17 @@ import aoc.back.interfacies.Generateur;
 import aoc.front.Afficheur;
 import aoc.front.interfacies.ObservateurGenerateur;
 import aoc.proxy.Canal;
+import aoc.strategy.AlgoDiffusion;
+import aoc.strategy.DiffusionAtomique;
+import aoc.strategy.DiffusionCausale;
 
 public class Main {
 
 	public static void main(String[] args) {
 
-		Generateur gen = new GenerateurImpl();
+		//c'est pas ouf d'utiliser generateur impl
+		GenerateurImpl gen = new GenerateurImpl();
+		gen.setAlg(new DiffusionCausale(gen));
 		
 		ObservateurGenerateur aff1 = new Afficheur(1);
 		ObservateurGenerateur aff2 = new Afficheur(2);
@@ -28,6 +33,8 @@ public class Main {
 		gen.attach(canal1);
 		gen.attach(canal2);
 		gen.attach(canal3);
+		
+		gen.run();
 		
 	}
 

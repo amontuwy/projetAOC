@@ -11,8 +11,14 @@ import aoc.strategy.DiffusionAtomique;
 public class GenerateurImpl implements Generateur {
 	
 	AlgoDiffusion alg = new DiffusionAtomique(this);
-	Integer value=3;
+	Integer value;
 	List <ObservateurGenerateurAsync> listobs = new ArrayList<ObservateurGenerateurAsync>();
+	
+
+	public GenerateurImpl() {
+		super();
+		this.value = 0;
+	}
 
 	@Override
 	public void attach(ObservateurGenerateurAsync observeur) {
@@ -23,6 +29,20 @@ public class GenerateurImpl implements Generateur {
 	public void detach(ObservateurGenerateurAsync observeur) {
 		if (listobs.contains(observeur)){
 			listobs.remove(observeur);
+		}
+	}
+	
+	public void run() {
+		while (true){
+			this.value ++;
+			System.out.println("Nouvelle valeur ");
+			this.alg.execute();
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -46,5 +66,13 @@ public class GenerateurImpl implements Generateur {
 
 	public Integer getValue() {
 		return value;
+	}
+	
+	public AlgoDiffusion getAlg() {
+		return alg;
+	}
+
+	public void setAlg(AlgoDiffusion alg) {
+		this.alg = alg;
 	}
 }

@@ -1,7 +1,14 @@
 package aoc.strategy;
 
-public class DiffusionCausale implements AlgoDiffusion {
+import aoc.back.GenerateurImpl;
 
+public class DiffusionCausale implements AlgoDiffusion {
+GenerateurImpl gen;
+	
+	public DiffusionCausale(GenerateurImpl gen) {
+		super();
+		this.gen = gen;
+	}
 	@Override
 	public void configure() {
 		// TODO Auto-generated method stub
@@ -10,7 +17,8 @@ public class DiffusionCausale implements AlgoDiffusion {
 
 	@Override
 	public void execute() {
-		// TODO Auto-generated method stub
+		gen.getListobs().forEach(obs->obs.update(gen));
+		System.out.println("-------------Diffusion Causale-------------------");
 		
 	}
 
