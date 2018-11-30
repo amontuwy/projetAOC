@@ -1,12 +1,10 @@
 import aoc.back.GenerateurImpl;
-import aoc.back.interfacies.Generateur;
 import aoc.front.Afficheur;
-import aoc.front.interfacies.ObservateurGenerateur;
 import aoc.proxy.Canal;
-import aoc.strategy.AlgoDiffusion;
 import aoc.strategy.DiffusionAtomique;
-import aoc.strategy.DiffusionCausale;
 import aoc.strategy.DiffusionSequentielle;
+import aoc.swing.CommAfficheur;
+import aoc.swing.Fenetre;
 
 public class Main {
 
@@ -14,11 +12,11 @@ public class Main {
 
 		//c'est pas ouf d'utiliser generateur impl
 		GenerateurImpl gen = new GenerateurImpl();
-		gen.setAlg(new DiffusionSequentielle(gen));
+		gen.setAlg(new DiffusionAtomique(gen));
 		
-		ObservateurGenerateur aff1 = new Afficheur(1);
-		ObservateurGenerateur aff2 = new Afficheur(2);
-		ObservateurGenerateur aff3 = new Afficheur(3);
+		Afficheur aff1 = new Afficheur(1);
+		Afficheur aff2 = new Afficheur(2);
+		Afficheur aff3 = new Afficheur(3);
 		
 		Canal canal1 = new Canal();
 		canal1.attach(aff1);
@@ -31,6 +29,13 @@ public class Main {
 		gen.attach(canal2);
 		gen.attach(canal3);
 		
+		Fenetre fen = new Fenetre(gen);
+		
+		CommAfficheur comm = new CommAfficheur(fen);
+		aff1.addObserver(comm);
+		aff2.addObserver(comm);
+		aff3.addObserver(comm);
+		gen.addObserver(comm);
 		gen.run();
 		
 	}

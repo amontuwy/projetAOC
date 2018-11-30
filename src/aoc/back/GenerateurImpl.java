@@ -2,13 +2,13 @@ package aoc.back;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
 import aoc.back.interfacies.Generateur;
 import aoc.proxy.interfacies.ObservateurGenerateurAsync;
 import aoc.strategy.AlgoDiffusion;
-import aoc.strategy.DiffusionAtomique;
 
-public class GenerateurImpl implements Generateur{
+public class GenerateurImpl extends Observable implements Generateur{
 	
 	AlgoDiffusion alg;
 	Integer value;
@@ -35,6 +35,8 @@ public class GenerateurImpl implements Generateur{
 	public void run() {
 		while (true){
 			this.value ++;
+			setChanged();
+			notifyObservers(this.value);
 			System.out.println("Nouvelle valeur ");
 			this.alg.execute();
 			try {

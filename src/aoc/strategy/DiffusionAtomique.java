@@ -2,7 +2,6 @@ package aoc.strategy;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 import aoc.back.GenerateurImpl;

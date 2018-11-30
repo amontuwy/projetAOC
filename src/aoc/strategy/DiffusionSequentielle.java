@@ -9,25 +9,19 @@ import aoc.back.GenerateurImpl;
 
 public class DiffusionSequentielle implements AlgoDiffusion {
 
-	private class DiffusionSeqRunner extends Thread{
-		List <Future> futureList;
+	private class DiffusionSeqRunner implements Runnable {
+		List <Future<Object>> futureList;
 		
-		public DiffusionSeqRunner() {
-			this.futureList = new ArrayList<Future>();
-		}
-		
-		public void setFutureList(List<Future> futureList) {
+		public DiffusionSeqRunner(List<Future<Object>> futureList) {
 			this.futureList = futureList;
 		}
 		
 		@Override
 		public void run() {
-			System.out.println(this.isAlive());
 			futureList.forEach(f->{
 				try {
 					f.get();
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			});
@@ -36,12 +30,12 @@ public class DiffusionSequentielle implements AlgoDiffusion {
 		
 	}
 	
-	private DiffusionSeqRunner runner;
+	private Thread runner;
 	private GenerateurImpl gen;
 	
 	public DiffusionSequentielle(GenerateurImpl gen) {
 		super();
-		this.runner = new DiffusionSeqRunner();
+		this.runner = new Thread();
 		this.gen = gen;
 	}
 	
@@ -54,15 +48,14 @@ public class DiffusionSequentielle implements AlgoDiffusion {
 	@Override
 	public void execute() {		
 		if(!this.runner.isAlive()) {
-			this.runner = new DiffusionSeqRunner();
 			GenerateurImpl genClone = new GenerateurImpl();
 			genClone.setValue(gen.getValue());
 			
-			List <Future> futureList = new ArrayList<Future>();
+			List <Future<Object>> futureList = new ArrayList<Future<Object>>();
 			gen.getListobs().forEach(obs->futureList.add(obs.update(genClone)));
-			runner.setFutureList(futureList);
+
+			runner = new Thread(new DiffusionSeqRunner(futureList));
 			runner.start();
-		}else {
 		}
 	}
 
