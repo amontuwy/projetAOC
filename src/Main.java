@@ -2,6 +2,7 @@ import aoc.back.GenerateurImpl;
 import aoc.front.Afficheur;
 import aoc.proxy.Canal;
 import aoc.strategy.DiffusionAtomique;
+import aoc.strategy.DiffusionCausale;
 import aoc.strategy.DiffusionSequentielle;
 import aoc.swing.CommAfficheur;
 import aoc.swing.Fenetre;
@@ -12,7 +13,7 @@ public class Main {
 
 		//c'est pas ouf d'utiliser generateur impl
 		GenerateurImpl gen = new GenerateurImpl();
-		gen.setAlg(new DiffusionAtomique(gen));
+		gen.setAlg(new DiffusionCausale(gen));
 		
 		Afficheur aff1 = new Afficheur(1);
 		Afficheur aff2 = new Afficheur(2);

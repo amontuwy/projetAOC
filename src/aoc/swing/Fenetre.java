@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 
 import aoc.back.GenerateurImpl;
 import aoc.strategy.DiffusionAtomique;
+import aoc.strategy.DiffusionCausale;
 import aoc.strategy.DiffusionSequentielle;
 
 public class Fenetre extends JFrame {
@@ -79,6 +80,7 @@ public class Fenetre extends JFrame {
 	class CausListener implements ActionListener {
 		public void actionPerformed ( ActionEvent arg0 ) {
 			clearLabel();
+			gen.setAlg(new DiffusionCausale(gen));
 		}
 	}
 
