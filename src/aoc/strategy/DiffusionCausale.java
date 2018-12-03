@@ -62,31 +62,54 @@ public class DiffusionCausale implements AlgoDiffusion {
 		
 	}
 	
-	private void sendRunner(DiffusionCauRunner runner, int indexObs, List<GenerateurImpl> listGen) {
-		if(!runner.isAlive() && (listGen.size() > 0)) {
-			switch(indexObs) {
-			case 0 : 
-				this.runner0 = new DiffusionCauRunner();
-				break;
-			case 1 : 
-				this.runner1 = new DiffusionCauRunner();
-				break;
-			case 2 : 
-				this.runner2 = new DiffusionCauRunner();
-				break;
-				
-			}
-			
-			GenerateurImpl currGen = listGen.get(0);
+	private void sendRunner0() {
+		if(!this.runner0.isAlive()) {
+			this.runner0 = new DiffusionCauRunner();
+
+			GenerateurImpl currGen = this.mementoGenFor0.get(0);
 						
 			Future<Object> future;
-			future = this.gen.getListobs().get(indexObs).update(currGen);
+			future = this.gen.getListobs().get(0).update(currGen);
 			
 			
-			runner.setFuture(future);
-			runner.start();
+			this.runner0.setFuture(future);
+			this.runner0.start();
 
-			listGen.remove(0);
+			this.mementoGenFor0.remove(0);
+		}
+	}
+
+	private void sendRunner1() {
+		if(!this.runner1.isAlive()) {
+			this.runner1 = new DiffusionCauRunner();
+
+			GenerateurImpl currGen = this.mementoGenFor1.get(0);
+						
+			Future<Object> future;
+			future = this.gen.getListobs().get(1).update(currGen);
+			
+			
+			this.runner1.setFuture(future);
+			this.runner1.start();
+
+			this.mementoGenFor1.remove(0);
+		}
+		
+	}
+	private void sendRunner2() {
+		if(!this.runner2.isAlive()) {
+			this.runner2 = new DiffusionCauRunner();
+
+			GenerateurImpl currGen = this.mementoGenFor2.get(0);
+						
+			Future<Object> future;
+			future = this.gen.getListobs().get(2).update(currGen);
+			
+			
+			this.runner2.setFuture(future);
+			this.runner2.start();
+
+			this.mementoGenFor2.remove(0);
 		}
 		
 	}
@@ -101,9 +124,9 @@ public class DiffusionCausale implements AlgoDiffusion {
 		this.mementoGenFor2.add(tmpGen);
 		
 		
-		this.sendRunner(this.runner0, 0, this.mementoGenFor0);
-		this.sendRunner(this.runner1, 1, this.mementoGenFor1);
-		this.sendRunner(this.runner2, 2, this.mementoGenFor2);
+		this.sendRunner0();
+		this.sendRunner1();
+		this.sendRunner2();
 		
 	}
 
