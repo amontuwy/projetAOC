@@ -3,15 +3,18 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import aoc.Main;
 import aoc.back.GenerateurImpl;
 import aoc.strategy.DiffusionAtomique;
-import aoc.strategy.DiffusionCausale;
-import aoc.strategy.DiffusionSequentielle;
+import aoc.strategy.causale.DiffusionCausale;
+import aoc.strategy.sequentielle.DiffusionSequentielle;
 
 public class Fenetre extends JFrame {
 	private JButton buttonAtom = new JButton("Diffusion Atomique");
@@ -19,18 +22,13 @@ public class Fenetre extends JFrame {
 	private JButton buttonCaus = new JButton("Diffusion Causale");
 
 	JLabel generateur = new JLabel("", JLabel.CENTER);
-	JLabel canal1 = new JLabel("", JLabel.CENTER);
-	JLabel canal2 = new JLabel("", JLabel.CENTER);
-	JLabel canal3 = new JLabel("", JLabel.CENTER);
-	
+	List<JLabel> canaux = new ArrayList<>();
+
 	JLabel labelG = new JLabel("Générateur ", JLabel.CENTER);
-	JLabel labelC1 = new JLabel("Canal 1", JLabel.CENTER);
-	JLabel labelC2 = new JLabel("Canal 2", JLabel.CENTER);
-	JLabel labelC3 = new JLabel("Canal 3", JLabel.CENTER);
 
 	JLabel choose = new JLabel("Choix de la cohérence :");
 	GenerateurImpl gen;
-	
+
 	public Fenetre (GenerateurImpl gen) {
 		this.gen = gen;
 		this.setTitle (" Observeur Asynchrone AOC ");
@@ -39,41 +37,61 @@ public class Fenetre extends JFrame {
 		this.setLocationRelativeTo ( null );
 		this.setVisible(true);
 		this.setLayout(new GridLayout(3,4,10,10));
+
 		this.add(labelG);
-		this.add(labelC1);
-		this.add(labelC2);
-		this.add(labelC3);
-		
+		for(int i=0; i<Main.NB_VALUES_GEN; i++) {
+			this.add(new JLabel("Canal "+i, JLabel.CENTER));
+		}
+
 		this.add(generateur);
-		this.add(canal1);
-		this.add(canal2);
-		this.add(canal3);
-		
+		for(int i=0; i<Main.NB_VALUES_GEN; i++) {
+			JLabel canal = new JLabel("", JLabel.CENTER);
+			canaux.add(canal);
+			this.add(canal);
+		}
+
 		this.add(choose);
 		this.add(buttonAtom);
 		this.add(buttonSequ);
 		this.add(buttonCaus);
+
+		setButtonColor(buttonCaus);
+		
 		generateur.setOpaque(true);
 		generateur.setBackground(Color.white);
-		buttonAtom.addActionListener ( new AtomListener());
-		buttonSequ.addActionListener ( new SequListener());
-		buttonCaus.addActionListener ( new CausListener());
+		
+		buttonAtom.addActionListener(new AtomListener());
+		buttonSequ.addActionListener(new SequListener());
+		buttonCaus.addActionListener(new CausListener());
 	}
 
 	public void clearLabel(){
-		canal1.setText("");
-		canal2.setText("");
-		canal3.setText("");
+		for(JLabel canal:canaux) {
+			canal.setText("");
+		}
 	}
-	
+
+	public void setCanalText(String text, int indCanal) {
+		canaux.get(indCanal).setText(text);
+	}
+
 	public void setValue(JLabel label, String text) {
 		label.setText(text);
+	}
+
+	public void setButtonColor(JButton button) {
+		buttonAtom.setBackground(Color.GRAY);
+		buttonSequ.setBackground(Color.GRAY);
+		buttonCaus.setBackground(Color.GRAY);
+
+		button.setBackground(Color.GREEN);
 	}
 
 	class SequListener implements ActionListener {
 		public void actionPerformed ( ActionEvent arg0 ) {
 			clearLabel();
 			gen.setAlg(new DiffusionSequentielle(gen));
+			setButtonColor(buttonSequ);
 		}
 	}
 
@@ -81,6 +99,7 @@ public class Fenetre extends JFrame {
 		public void actionPerformed ( ActionEvent arg0 ) {
 			clearLabel();
 			gen.setAlg(new DiffusionCausale(gen));
+			setButtonColor(buttonCaus);
 		}
 	}
 
@@ -88,6 +107,11 @@ public class Fenetre extends JFrame {
 		public void actionPerformed ( ActionEvent arg0 ) {
 			clearLabel();
 			gen.setAlg(new DiffusionAtomique(gen));
+			setButtonColor(buttonAtom);
 		}
+	}
+
+	public void setGenerateurText(String text){
+		this.generateur.setText(text);
 	}
 }

@@ -1,35 +1,14 @@
-package aoc.strategy;
+package aoc.strategy.sequentielle;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Future;
 
 import aoc.back.GenerateurImpl;
+import aoc.strategy.AlgoDiffusion;
 
 
 public class DiffusionSequentielle implements AlgoDiffusion {
-
-	private class DiffusionSeqRunner implements Runnable {
-		List <Future<Object>> futureList;
-		
-		public DiffusionSeqRunner(List<Future<Object>> futureList) {
-			this.futureList = futureList;
-		}
-		
-		@Override
-		public void run() {
-			futureList.forEach(f->{
-				try {
-					f.get();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			});
-			System.out.println("----------Diffusion Sequentielle-------------------");
-		}
-		
-	}
-	
 	private Thread runner;
 	private GenerateurImpl gen;
 	
@@ -42,7 +21,6 @@ public class DiffusionSequentielle implements AlgoDiffusion {
 	@Override
 	public void configure() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
