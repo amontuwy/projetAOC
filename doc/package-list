@@ -1,0 +1,11 @@
+aoc
+aoc.back
+aoc.back.interfacies
+aoc.front
+aoc.front.interfacies
+aoc.proxy
+aoc.proxy.interfacies
+aoc.strategy
+aoc.strategy.causale
+aoc.strategy.sequentielle
+aoc.swing

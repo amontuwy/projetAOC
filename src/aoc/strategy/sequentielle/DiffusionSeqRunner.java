@@ -2,7 +2,10 @@ package aoc.strategy.sequentielle;
 
 import java.util.List;
 import java.util.concurrent.Future;
-
+/**
+ * @author Angelique Montuwy, Antoine Posnic
+ * Classe assurant le bloquage du thread de notification des observateurs tant que ces derniers n'ont pas resolu leur update (stockes dans la liste de future).
+ */
 class DiffusionSeqRunner implements Runnable {
 	List <Future<Object>> futureList;
 
@@ -19,7 +22,7 @@ class DiffusionSeqRunner implements Runnable {
 				e.printStackTrace();
 			}
 		});
-		System.out.println("----------Diffusion Sequentielle-------------------");
+		
 	}
 
 }

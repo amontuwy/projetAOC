@@ -16,19 +16,41 @@ import aoc.strategy.DiffusionAtomique;
 import aoc.strategy.causale.DiffusionCausale;
 import aoc.strategy.sequentielle.DiffusionSequentielle;
 
+/**
+ * 
+ * @author Angelique Montuwy, Antoine Posnic
+ * Classe permettant l'affichage graphique des valeurs du generateur et des afficheurs.
+ * Offre de selection un des 3 algorithmes de diffusion.
+ */
 public class Fenetre extends JFrame {
+	/**
+	 * Boutons de selection d'un des 3 algorithmes
+	 */
 	private JButton buttonAtom = new JButton("Diffusion Atomique");
-	private JButton buttonSequ = new JButton("Diffusion Séquentielle");
+	private JButton buttonSequ = new JButton("Diffusion Sequentielle");
 	private JButton buttonCaus = new JButton("Diffusion Causale");
 
+	/**
+	 * JLabel destine a l'affichage de la valeur du generateur.
+	 */
 	JLabel generateur = new JLabel("", JLabel.CENTER);
+	/**
+	 * Liste de JLabel destines a l'affichage de la valeur des afficheurs.
+	 */
 	List<JLabel> canaux = new ArrayList<>();
 
-	JLabel labelG = new JLabel("Générateur ", JLabel.CENTER);
+	/**
+	 * Titre du generateur
+	 */
+	JLabel labelG = new JLabel("Generateur ", JLabel.CENTER);
 
-	JLabel choose = new JLabel("Choix de la cohérence :");
+	JLabel choose = new JLabel("Choix de la coherence :");
 	GenerateurImpl gen;
 
+	/**
+	 * Constructeur de la fenetre d'affichage pour un generateur et un certain nombre d'afficheurs (definis dans le Main).
+	 * @param gen: GenerateurImpl
+	 */
 	public Fenetre (GenerateurImpl gen) {
 		this.gen = gen;
 		this.setTitle (" Observeur Asynchrone AOC ");
@@ -39,12 +61,20 @@ public class Fenetre extends JFrame {
 		this.setLayout(new GridLayout(3,4,10,10));
 
 		this.add(labelG);
-		for(int i=0; i<Main.NB_VALUES_GEN; i++) {
-			this.add(new JLabel("Canal "+i, JLabel.CENTER));
+		
+		/**
+		 * Definition d'autant de titres d'afficheur que demande dans le main.
+		 */
+		
+		for(int i=0; i<Main.NB_VALUES_AFF; i++) {
+			this.add(new JLabel("Afficheur "+i, JLabel.CENTER));
 		}
 
 		this.add(generateur);
-		for(int i=0; i<Main.NB_VALUES_GEN; i++) {
+		/**
+		 * Creation d'autant de JLabel destines a l'affiachage des valeurs des afficheurs que d'afficheurs demandes dans le main.
+		 */
+		for(int i=0; i<Main.NB_VALUES_AFF; i++) {
 			JLabel canal = new JLabel("", JLabel.CENTER);
 			canaux.add(canal);
 			this.add(canal);
@@ -55,7 +85,7 @@ public class Fenetre extends JFrame {
 		this.add(buttonSequ);
 		this.add(buttonCaus);
 
-		setButtonColor(buttonCaus);
+		setButtonColor(buttonAtom);
 		
 		generateur.setOpaque(true);
 		generateur.setBackground(Color.white);
@@ -65,20 +95,36 @@ public class Fenetre extends JFrame {
 		buttonCaus.addActionListener(new CausListener());
 	}
 
+	/**
+	 * Efface la valeur de tous les afficheurs
+	 */
 	public void clearLabel(){
 		for(JLabel canal:canaux) {
 			canal.setText("");
 		}
 	}
 
+	/**
+	 * Modifie la valeur affichee dans le JLabel correspondant a l'afficheur d'indice indCanal par le texte passe en parametre.
+	 * @param text: string
+	 * @param indCanal: int 
+	 */
 	public void setCanalText(String text, int indCanal) {
 		canaux.get(indCanal).setText(text);
 	}
-
-	public void setValue(JLabel label, String text) {
-		label.setText(text);
+	
+	/**
+	 * Modifie la valeur affichee dans le JLabel correspondant au generateur par le texte passe en parametre.
+	 * @param text: string
+	 */
+	public void setGenerateurText(String text){
+		this.generateur.setText(text);
 	}
 
+	/**
+	 * Passe en vert le bouton correspondant a l'agorithme de diffusion actuellement utilise.
+	 * @param button: JButton
+	 */
 	public void setButtonColor(JButton button) {
 		buttonAtom.setBackground(Color.GRAY);
 		buttonSequ.setBackground(Color.GRAY);
@@ -87,6 +133,9 @@ public class Fenetre extends JFrame {
 		button.setBackground(Color.GREEN);
 	}
 
+	/**
+	 * Listener permettant d'utiliser un algorithme de diffusion sequentielle sur le generateur associe a la fenetre.
+	 */
 	class SequListener implements ActionListener {
 		public void actionPerformed ( ActionEvent arg0 ) {
 			clearLabel();
@@ -95,6 +144,9 @@ public class Fenetre extends JFrame {
 		}
 	}
 
+	/**
+	 * Listener permettant d'utiliser un algorithme de diffusion causale sur le generateur associe a la fenetre.
+	 */
 	class CausListener implements ActionListener {
 		public void actionPerformed ( ActionEvent arg0 ) {
 			clearLabel();
@@ -103,6 +155,9 @@ public class Fenetre extends JFrame {
 		}
 	}
 
+	/**
+	 * Listener permettant d'utiliser un algorithme de diffusion atomique sur le generateur associe a la fenetre.
+	 */
 	class AtomListener implements ActionListener {
 		public void actionPerformed ( ActionEvent arg0 ) {
 			clearLabel();
@@ -111,7 +166,5 @@ public class Fenetre extends JFrame {
 		}
 	}
 
-	public void setGenerateurText(String text){
-		this.generateur.setText(text);
-	}
+	
 }
